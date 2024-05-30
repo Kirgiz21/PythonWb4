@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}LogIn{% endblock title %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1><strong>Ви вже авторизувались!</strong></h1>
+    {% else %}
+        {% if form.errors %}
+                <p>Пароль та Ім'я введені некоректно. Спробуй ще раз.</p>
+            {% endif %}
+
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <p>Такої адреси на сайті не існує, будь-ласка зареєструйся щоб продовжити.</p>
+                {% else %}
+                    <p>Будь-ласка увійди щоб побачити цю сторінку</p>
+                {% endif %}
+            {% endif %}
+
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td>{{ form.username.label_tag }}</td>
+                        <td>{{ form.username }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>{{ form.password.label_tag }}</td>
+                        <td>{{ form.password }}</td>
+                    </tr>
+                </table>
+                <input type="submit" value="Увійти" />
+            </form>
+
+            <p><a href="{% url 'password_reset' %}">Не пам'ятаєте пароль?</a></p>
+    {% endif %}
+
+{% endblock content %}

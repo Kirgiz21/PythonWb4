@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Мої процедури{% endblock title %}
+{% block content %}
+    <h1 class="display-2">Мої процедури</h1>
+
+    {% if procedure_list %}
+
+        {% for procedure in procedure_list %}
+            <div class="
+            {% if procedure.status == 'o' %}alert alert-danger
+            {% elif procedure.status == 'c' %}alert alert-primary
+            {% elif procedure.status == 'd' %}alert alert-success
+            {% else %}alert alert-dark
+            {% endif %}">
+                <h1><strong>
+                    {% for procedure_type in procedure.procedure_type.all %}
+                        {{ procedure_type }}
+                        {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </strong></h1>
+                <p><strong>Дата та час: </strong>{{ procedure.date_time }}</p>
+                <p><strong>Доктор: </strong>{{ procedure.doctor }}</p>
+                <p><strong>Статус: </strong>{{ procedure.get_status_display }}</p>
+                <p><strong>Деталі: </strong>{{ procedure.details }}</p>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <p>У вас немає жодної процедури.</p>
+    {% endif %}
+{% endblock %}

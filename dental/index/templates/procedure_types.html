@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Процедури{% endblock title %}
+{% block content %}
+{% load permissions_tags %}
+    <h1 class="display-2">Список процедур</h1>
+    {% if procedure_types %}
+        {% for procedure_type in procedure_types %}
+            <div class="alert alert-info">
+                <h1>Процедура: <strong>{{ procedure_type.name }}</strong></h1>
+                <p>Мінімальні ціна: <strong>{{ procedure_type.price }}</strong></p>
+                <p>Деталі: <strong>{{ procedure_type.details }}</strong></p>
+                {% if user|in_group:"admins" %}
+                    <div class="btn-group">
+                        <a class="btn btn-sm btn-outline-primary mx-3" href="{% url 'update_procedure_type' procedure_type.id %}">Редагувати послугу</a>
+                        <a class="btn btn-sm btn-outline-danger mx-3" href="{% url 'delete_procedure_type' procedure_type.id %}">Видалити послугу</a>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Немає нічого((</p>
+    {% endif %}
+{% endblock content %}

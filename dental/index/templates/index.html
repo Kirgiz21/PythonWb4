@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Стоматологія DENT{% endblock title %}
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-1"> Стоматологія Дент</h1>
+      <p class="lead display-5">Кількість лікарів: {{ num_doctors }}.</p>
+      <p class="lead display-5">Кількість доступних послуг: {{ num_procedure_type }}.</p>
+      <p class="lead display-5">Кількість пацієнтів: {{ num_patient }}.</p>
+    </div>
+{% endblock content %}
